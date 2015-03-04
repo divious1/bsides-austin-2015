@@ -6,7 +6,6 @@ from splunk.appserver.mrsparkle.lib.util import make_splunkhome_path
 
 USER = 'ubuntu'
 SSH_KEY = make_splunkhome_path(['etc', 'apps', 'bsides-austin-2015-app','default','bsides_demo.pem'])
-COMMAND="sudo shutdown -h 0 now"
 
 def setup_logger():
     """
@@ -29,18 +28,26 @@ def setup_logger():
 logger = setup_logger()
 
 
-def shutdown(endpoint):
- 
-    ssh = subprocess.Popen(['ssh', '-o StrictHostKeyChecking=no', '-i{0}'.format(SSH_KEY), '{0}@{1}'.format(USER,endpoint), COMMAND], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    result = ssh.stdout.readlines()
+def proc_kill(pid,process_name):
+    
+    if pid:
+        ssh = subprocess.Popen(['ssh', '-o StrictHostKeyChecking=no', '-i{0}'.format(SSH_KEY), '{0}@{1}'.format(USER,endpoint), 'sudo kill -9', pid], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = ssh.stdout.readlines()
     if result == []:
         error = ssh.stderr.readlines()
         logger.error(error)
     else:
         logger.debug(result)
     
-    
-    
+    if process_name:
+        ssh = subprocess.Popen(['ssh', '-o StrictHostKeyChecking=no', '-i{0}'.format(SSH_KEY), '{0}@{1}'.format(USER,endpoint), 'sudo killall', process_name], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = ssh.stdout.readlines()
+    if result == []:
+        error = ssh.stderr.readlines()
+        logger.error(error)
+    else:
+        logger.debug(result)
+
 if __name__ == '__main__':
 
     try:
@@ -49,17 +56,20 @@ if __name__ == '__main__':
          
         for entry in results:
             ## System info
-            if "endpoint" in entry:
-                endpoint = entry["system"]
+            if "pid" in entry:
+                endpoint = entry["pid"]
             else:
-                endpoint = options.get('endpoint', None)
-
-            shutdown(endpoint)
-            logger.warn('sent shutdown command to {0}'.format(endpoint))
+                endpoint = options.get('pid', None)
+            if "process_name" in entry:
+                endpoint = entry["process_name"]
+            else:
+                endpoint = options.get('process_name', None)
+            proc_kill(pid,process_name)
+            logger.warn('sent process kill command for PID {0} name {1}'.format(pid,process_name))
             break
 
     except Exception as e:
         logger.error("There was an issue establishing arguments for the " +
-                     "shutdown search command!")
+                     "proc_kill search command!")
         logger.exception(str(e))
 

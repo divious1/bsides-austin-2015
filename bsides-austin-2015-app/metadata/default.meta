@@ -27,6 +27,8 @@ export = system
 [lookups]
 export = system
 
+[commands]
+export = system
 
 ### VIEWSTATES: even normal users should be able to create shared viewstates
 
