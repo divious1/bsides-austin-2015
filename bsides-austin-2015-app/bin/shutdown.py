@@ -1,9 +1,12 @@
 import logging
 import splunk.Intersplunk as si
+import os
+import subprocess
+from splunk.appserver.mrsparkle.lib.util import make_splunkhome_path
 
 USER = 'ubuntu'
-SSH_KEY = '~/bsides_demo.pem'
-COMMAND="sudo touch test.text"
+SSH_KEY = make_splunkhome_path(['etc', 'apps', 'bsides-austin-2015-app','default','bsides_demo.pem'])
+COMMAND="sudo shutdown -h 0 now"
 
 def setup_logger():
     """
@@ -28,10 +31,7 @@ logger = setup_logger()
 
 def shutdown(endpoint):
  
-    ssh = subprocess.Popen(["ssh", "%s" % endpoint, COMMAND],
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE)
+    ssh = subprocess.Popen(['ssh', '-i{0}'.format(SSH_KEY), '{0}@{1}'.format(USER,endpoint), COMMAND], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     result = ssh.stdout.readlines()
     if result == []:
         error = ssh.stderr.readlines()
