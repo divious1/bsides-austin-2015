@@ -33,20 +33,20 @@ def prockill(pid,process_name,endpoint):
     if pid:
         ssh = subprocess.Popen(['ssh', '-o StrictHostKeyChecking=no', '-i{0}'.format(SSH_KEY), '{0}@{1}'.format(USER,endpoint), 'sudo kill -9', pid], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         result = ssh.stdout.readlines()
-    if result == []:
-        error = ssh.stderr.readlines()
-        logger.error(error)
-    else:
-        logger.debug(result)
+        if result == []:
+            error = ssh.stderr.readlines()
+            logger.error(error)
+        else:
+            logger.debug(result)
     
     if process_name:
         ssh = subprocess.Popen(['ssh', '-o StrictHostKeyChecking=no', '-i{0}'.format(SSH_KEY), '{0}@{1}'.format(USER,endpoint), 'sudo killall', process_name], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         result = ssh.stdout.readlines()
-    if result == []:
-        error = ssh.stderr.readlines()
-        logger.error(error)
-    else:
-        logger.debug(result)
+        if result == []:
+            error = ssh.stderr.readlines()
+            logger.error(error)
+        else:
+            logger.debug(result)
 
 if __name__ == '__main__':
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
             if "pid" in entry:
                 pid = entry["pid"]
             else:
-                endpoint = options.get('pid', None)
+                pid = options.get('pid', None)
 
             if "process_name" in entry:
                 process_name = entry["process_name"]
@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
             #kill process
             prockill(pid,process_name,endpoint)
-            logger.warn('sent process kill command for PID {0} name {1} to host {2)'.format(pid,process_name,endpoint))
+            logger.warn('sent process kill command for PID {0} name {1} to host {2})'.format(pid,process_name,endpoint))
             break
 
     except Exception as e:

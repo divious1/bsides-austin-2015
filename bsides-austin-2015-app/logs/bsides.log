@@ -1,0 +1,70 @@
+2015-03-04 11:18:49,647 ERROR []
+2015-03-04 11:18:49,648 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:49,749 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:49,750 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:49,852 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:49,853 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:49,953 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:49,954 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:50,054 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:50,055 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:50,154 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:50,155 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:50,255 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:50,255 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:50,358 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:50,358 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:50,458 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:50,458 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:50,559 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:50,559 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:50,659 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:50,659 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:50,759 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:50,759 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:18:50,864 ERROR ['ssh: connect to host 52.1.116.1 port 22: Connection refused\r\n']
+2015-03-04 11:18:50,864 WARNING sent shutdown command to 52.1.116.1
+2015-03-04 11:28:04,975 ERROR ['Host key verification failed.\r\n']
+2015-03-04 11:28:04,975 WARNING sent shutdown command to 54.165.250.101
+2015-03-04 11:31:14,579 ERROR ["Warning: Permanently added '54.165.250.101' (RSA) to the list of known hosts.\r\n"]
+2015-03-04 11:31:14,580 WARNING sent shutdown command to 54.165.250.101
+2015-03-04 14:51:13,403 ERROR There was an issue establishing arguments for the prockill search command!
+2015-03-04 14:51:13,403 ERROR local variable 'result' referenced before assignment
+Traceback (most recent call last):
+  File "/Users/jhernandez/Applications/splunk-62/etc/apps/bsides-austin-2015-app/bin/prockill.py", line 75, in <module>
+    prockill(pid,process_name,endpoint)
+  File "/Users/jhernandez/Applications/splunk-62/etc/apps/bsides-austin-2015-app/bin/prockill.py", line 36, in prockill
+    if result == []:
+UnboundLocalError: local variable 'result' referenced before assignment
+2015-03-04 14:51:17,431 ERROR There was an issue establishing arguments for the prockill search command!
+2015-03-04 14:51:17,431 ERROR name 'pid' is not defined
+Traceback (most recent call last):
+  File "/Users/jhernandez/Applications/splunk-62/etc/apps/bsides-austin-2015-app/bin/prockill.py", line 75, in <module>
+    prockill(pid,process_name,endpoint)
+NameError: name 'pid' is not defined
+2015-03-04 14:53:07,947 ERROR []
+2015-03-04 14:53:07,947 ERROR []
+2015-03-04 14:53:07,948 ERROR There was an issue establishing arguments for the prockill search command!
+2015-03-04 14:53:07,948 ERROR unmatched '{' in format
+Traceback (most recent call last):
+  File "/Users/jhernandez/Applications/splunk-62/etc/apps/bsides-austin-2015-app/bin/prockill.py", line 76, in <module>
+    logger.warn('sent process kill command for PID {0} name {1} to host {2)'.format(pid,process_name,endpoint))
+ValueError: unmatched '{' in format
+2015-03-04 14:53:42,955 ERROR There was an issue establishing arguments for the prockill search command!
+2015-03-04 14:53:42,955 ERROR name 'pid' is not defined
+Traceback (most recent call last):
+  File "/Users/jhernandez/Applications/splunk-62/etc/apps/bsides-austin-2015-app/bin/prockill.py", line 75, in <module>
+    prockill(pid,process_name,endpoint)
+NameError: name 'pid' is not defined
+2015-03-04 14:54:46,490 ERROR There was an issue establishing arguments for the prockill search command!
+2015-03-04 14:54:46,490 ERROR local variable 'ssh' referenced before assignment
+Traceback (most recent call last):
+  File "/Users/jhernandez/Applications/splunk-62/etc/apps/bsides-austin-2015-app/bin/prockill.py", line 75, in <module>
+    prockill(pid,process_name,endpoint)
+  File "/Users/jhernandez/Applications/splunk-62/etc/apps/bsides-austin-2015-app/bin/prockill.py", line 35, in prockill
+    result = ssh.stdout.readlines()
+UnboundLocalError: local variable 'ssh' referenced before assignment
+2015-03-04 14:56:04,899 ERROR []
+2015-03-04 14:56:04,900 WARNING sent process kill command for PID 5341 name None to host 54.173.93.61)
+2015-03-04 14:57:08,463 ERROR []
+2015-03-04 14:57:08,464 WARNING sent process kill command for PID  name top to host 54.173.93.61)

@@ -7,6 +7,13 @@ from splunk.appserver.mrsparkle.lib.util import make_splunkhome_path
 USER = 'ubuntu'
 SSH_KEY = make_splunkhome_path(['etc', 'apps', 'bsides-austin-2015-app','default','bsides_demo.pem'])
 
+#makes a local path to store logs to be ingested in inouts.conf
+BASE_DIR = make_splunkhome_path(["etc","apps","TA-Akamai"])
+
+#adjusted for windows path
+EVIDENCE_LOG_PATH = os.path.join(BASE_DIR,'log','evidence.log')
+
+
 def setup_logger():
     """
     sets up logger for shutdown command
@@ -38,12 +45,16 @@ def sysdigstart(process_name,endpoint):
             logger.error(error)
         else:
             logger.debug(result)
+            return result
 
 if __name__ == '__main__':
 
     try:
         results, dummyresults, settings = si.getOrganizedResults()
         keywords, options = si.getKeywordsAndOptions()
+        #opens a file handle to write results into
+        bufsize = 0
+        f = open(EVIDENCE_LOG_PATH, 'w',bufsize)
          
         for entry in results:
             ## parse arguments
@@ -58,9 +69,15 @@ if __name__ == '__main__':
                 process_name = options.get('process_name', None)
 
             #kill process
-            prockill(process_name,endpoint)
+            result = prockill(process_name,endpoint)
             logger.warn('sent sysdig collection to endpoint {0} with a process name that contains {1} )'.format(endpoint,process_name))
+            #write results
+            f.write(result)
+
+
+            #should not get here should use the stop command
             break
+        f.close()
 
     except Exception as e:
         logger.error("There was an issue establishing arguments for the " +
