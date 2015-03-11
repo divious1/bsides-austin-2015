@@ -1,0 +1,110 @@
+<form script="set_app_token.js">
+  <label>Active Response</label>
+  <fieldset autoRun="false" submitButton="false">
+    <input type="dropdown" token="sourcetype_tok" searchWhenChanged="true">
+      <label>Select a Sourcetype:</label>
+      <prefix>sourcetype="</prefix>
+      <suffix>"</suffix>
+      <!-- Define the default value -->
+      <default>ps</default>
+      <!-- Hard-code the choice for "All" -->
+      <choice value="*">All</choice>
+      <!-- Define the other choices with a populating search -->
+      <search>
+        <query>| metadata type=sourcetypes index=os</query>
+      </search>
+      <fieldForLabel>sourcetype</fieldForLabel>
+      <fieldForValue>sourcetype</fieldForValue>
+    </input>
+    <input type="text" token="host_name">
+      <label>Host Name</label>
+      <default></default>
+    </input>
+    <input type="text" token="ip_addr">
+      <label>IP Address</label>
+      <default></default>
+    </input>
+    <input type="text" token="proc_name">
+      <label>Process Name</label>
+      <default></default>
+    </input>
+    <input type="text" token="proc_id">
+      <label>Process ID</label>
+      <default></default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        <button class="btn" data-set-token="show_details" data-value="show">start sysdig collection</button>
+        <button class="btn" data-set-token="show_details" data-value="show">stop sysdig collection</button>
+        <text> | | | | | | </text>
+        <button class="btn" data-set-token="show_details" data-value="show">kill process</button>
+        <button class="btn" data-set-token="show_details" data-value="show">shutdown</button>
+        <button class="btn" data-set-token="show_details" data-value="show">ansible</button>
+      </html>
+    </panel>
+    <panel>
+      <single>
+        <title>Orchestration Server Config</title>
+        <search>
+          <query>index=git sourcetype=git_status
+| rex "On\sbranch\s\w+[^\w]+(?&lt;git_msg&gt;[^\s]+)"
+| eval tellme=if(git_msg == "Untracked", "Trouble", "All Good")
+| stats first(tellme) as tellme |</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="classField">tellme</option>
+        <!--        <option name="afterLabel">total logging events</option>
+        <option name="beforeLabel">Found</option> -->
+        <option name="linkFields">beforelabel,result</option>
+        <option name="linkView">search</option>
+        <option name="linkSearch">index=test sourcetype=git_status</option>
+        <option name="refresh.auto.interval">120</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Main Search Results</title>
+      <event>
+        <search>
+          <query>index=os $sourcetype_tok$</query>
+          <earliest>-2h@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="list.drilldown">full</option>
+        <option name="list.wrap">1</option>
+        <option name="maxLines">5</option>
+        <option name="raw.drilldown">full</option>
+        <option name="rowNumbers">0</option>
+        <option name="table.drilldown">all</option>
+        <option name="table.wrap">1</option>
+        <option name="type">list</option>
+        <fields>[]</fields>
+      </event>
+    </panel>
+    <panel>
+      <title>Evidence</title>
+      <event>
+        <search>
+          <query>index=evidence</query>
+          <earliest>rt</earliest>
+          <latest>rt</latest>
+        </search>
+        <option name="count">30</option>
+        <option name="list.drilldown">full</option>
+        <option name="list.wrap">1</option>
+        <option name="maxLines">5</option>
+        <option name="raw.drilldown">full</option>
+        <option name="rowNumbers">0</option>
+        <option name="table.drilldown">all</option>
+        <option name="table.wrap">1</option>
+        <option name="type">list</option>
+        <fields>[]</fields>
+      </event>
+    </panel>
+  </row>
+</form>
