@@ -1,1 +1,1 @@
-*/10 * * * * /root/bsides-austin-2015/git-status.sh
+*/2 * * * * /root/bsides-austin-2015/git-status.sh
