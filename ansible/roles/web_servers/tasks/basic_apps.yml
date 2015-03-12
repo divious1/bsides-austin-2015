@@ -1,0 +1,26 @@
+---
+# install apache on web servers
+
+#DEBIAN INSTALL APACHE 
+
+- name: install basic utilities centos
+  tags:
+   - configuration
+   - centos
+  yum: name={{ item }} state=present
+  with_items:
+   - httpd
+  when: ansible_distribution == "CentOS"
+
+#DEBIAN INSTALL APACHE
+
+
+- name: install apache
+  tags:
+   - configuration
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+   - apache2
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+  

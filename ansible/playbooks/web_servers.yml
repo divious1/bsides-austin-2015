@@ -1,0 +1,10 @@
+---
+#applies web server config to web servers
+
+- name: apply web server config
+  hosts: web_server
+  user: ubuntu
+  sudo: yes
+
+  roles:
+    - web_server

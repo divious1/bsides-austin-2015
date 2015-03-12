@@ -8,7 +8,7 @@ USER = 'ubuntu'
 SSH_KEY = make_splunkhome_path(['etc', 'apps', 'bsides-austin-2015-app','default','bsides_demo.pem'])
 
 #makes a local path to store logs to be ingested in inouts.conf
-BASE_DIR = make_splunkhome_path(["etc","apps","TA-Akamai"])
+BASE_DIR = make_splunkhome_path(["etc","apps","bsides-austin-2015-app"])
 
 #adjusted for windows path
 EVIDENCE_LOG_PATH = os.path.join(BASE_DIR,'log','evidence.log')

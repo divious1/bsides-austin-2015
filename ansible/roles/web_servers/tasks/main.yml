@@ -1,0 +1,4 @@
+---
+# This playbook contains web server tasks in this role
+
+- include: basic_apps.yml
