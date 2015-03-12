@@ -2,9 +2,9 @@
 #applies web server config to web servers
 
 - name: apply web server config
-  hosts: web_server
+  hosts: 'tag_role_webserver'
   user: ubuntu
   sudo: yes
 
   roles:
-    - web_server
+    - web_servers

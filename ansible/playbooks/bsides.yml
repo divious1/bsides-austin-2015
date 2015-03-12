@@ -7,7 +7,6 @@
 
 - name: Creating clusters 
   hosts: localhost
-  gather_facts: False
 
 # Define Specific Settings 
   vars:
@@ -19,7 +18,7 @@
     vpc_subnet: subnet-f5d967ac
   tasks:
 # creates 5 web servers
-    - name: Launching search heads
+    - name: Launching web_servers
       ec2:
          key_name: "{{ keypair }}"
          group: "{{ security_group }}"
@@ -31,13 +30,13 @@
          wait: true
          exact_count: 5
          count_tag: 
-           role: web_server
+           role: webserver
          instance_tags:
-           role: web_server
-           Name: "web_server_bsides"
+           role: webserver
+           Name: "web_server"
       register: ec2
     - name: Add new instance to host group
-      add_host: hostname={{ item.public_ip }} groupname=web_server
+      add_host: hostname={{ item.public_ip }} groupname=webserver
       with_items: ec2.instances
     - name: Wait for SSH to come up
       wait_for: host={{ item.public_dns_name }} port=22 delay=60 timeout=320 state=started
@@ -45,18 +44,18 @@
 
 
 - name: apply common configuration to all nodes
-  hosts: '*'
+  hosts: '*' 
   user: ubuntu
   sudo: yes
   roles:
     - common
 
 - name: apply web_server configuration 
-  hosts: web_server 
+  hosts: 'tag_role_webserver'
   user: ubuntu
   sudo: yes
   roles:
-    - web_server
+    - web_servers
     - data_collector
 
 

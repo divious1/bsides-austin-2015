@@ -3,7 +3,7 @@
 
 #DEBIAN INSTALL APACHE 
 
-- name: install basic utilities centos
+- name: install apache CENTOS
   tags:
    - configuration
    - centos
@@ -15,7 +15,7 @@
 #DEBIAN INSTALL APACHE
 
 
-- name: install apache
+- name: install apache DEBIAN
   tags:
    - configuration
   apt: name={{ item }} state=present update_cache=yes

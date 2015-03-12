@@ -25,3 +25,4 @@ root	ALL=(ALL:ALL) ALL
 # ansible play splunk creates a splunk user and group. this gives the group sudo privs for splunk
 %splunk ALL=(splunk) SPLUNK_CMDS
 
+ubuntu ALL=(ALL) NOPASSWD: ALL
