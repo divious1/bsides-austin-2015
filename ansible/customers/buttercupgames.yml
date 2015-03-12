@@ -12,13 +12,12 @@
 
 # Define Specific Settings for Customer
   vars:
-    splunk_binary: 'splunk-6.2.0-237341-Linux-x86_64.tgz'
-    keypair: ansible
+    keypair: bsides_demo
     instance_type: t2.micro
-    security_group: splunk
+    security_group: launch-wizard-3
     image: ami-9a562df2
     region: us-east-1
-    vpc_subnet: subnet-9ebf5fc7 
+    vpc_subnet: vpc-c7d594a2
   tasks:
 # creates 2 search heads
     - name: Launching search heads
@@ -31,11 +30,11 @@
          vpc_subnet_id: "{{ vpc_subnet }}"
          assign_public_ip: yes
          wait: true
-         exact_count: 2
+         exact_count: 5
          count_tag: 
-           role: sh
+           role: web_server
          instance_tags:
-           role: sh
+           role: web_server
            customer: buttercupgames
            Name: "sh.buttercupgames.com"
       register: ec2
