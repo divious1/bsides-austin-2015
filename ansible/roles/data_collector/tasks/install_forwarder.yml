@@ -1,0 +1,10 @@
+---
+#install splunk forwarder pre-configured
+
+- name: installing splunk forwarder 
+  tags:
+   - install
+  unarchive: src=opt/splunkforwarder.tar.gz dest=/opt/ owner=root group=root mode=755
+
+- name: start collector
+  shell: /opt/splunkforwarder/bin/splunk start

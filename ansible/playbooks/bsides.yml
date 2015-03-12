@@ -57,5 +57,6 @@
   sudo: yes
   roles:
     - web_server
+    - data_collector
 
 
